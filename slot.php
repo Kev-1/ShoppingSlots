@@ -1,25 +1,16 @@
 <!DOCTYPE HTML>
-<!--
-	Spectral by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
-		<title>Generic - Spectral by HTML5 UP</title>
+		<title>GrandLucky > Book a time slot</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-
-		<!-- Page Wrapper -->
 			<div id="page-wrapper">
-
-				<!-- Header -->
 					<header id="header">
-						<h1><a href="index.html">Spectral</a></h1>
+						<h1><a href="index.html">Grandlucky</a></h1>
 						<nav id="nav">
 							<ul>
 								<li class="special">
@@ -45,8 +36,51 @@
 							<div class="inner">
 								<?php
 									require database.php;
-										
+									echo <<<_END
+									<form action="confirmation.php" method="post">
+									<div class="row gtr-uniform">
+										<div class="col-6 col-12-xsmall">
+											<input type="text" name="name" id="name" value="" placeholder="Name" />
+										</div>
+										<div class="col-6 col-12-xsmall">
+											<input type="email" name="phone" id="email" value="" placeholder="Phone Number" />
+										</div>
+										<div class="col-12">
+											<select name="demo-category" id="demo-category">
+												<option value="">Select a store</option>
+												<option value="1">Grand Lucky SCBD</option>
+												<option value="2">Grand Lucky Cinere</option>
+												<option value="3">Grand Lucky Radio Dalam</option>
+												<option value="4">Human Resources</option>
+											</select>
+										</div>
+_END;	
 								
+								$query  = "SELECT * FROM (your table)";
+							  	$result = $conn->query($query);
+							  	if (!$result) die ("Database access failed: " . $conn->error);
+								$rows = $result->num_rows;
+							
+								echo "<h3>Slots available:</h3>";
+								
+								for ($i = 0 ; $i < $rows ; ++$i) {
+									$result->data_seek($i);
+    								$row = $result->fetch_array(MYSQLI_ASSOC);
+									
+									if($_ROW[''])
+								};
+								
+								
+								echo <<<_END
+											<div class="col-12">
+												<ul class="actions">
+												<li><input type="submit" value="Book your slot" class="primary" /></li>
+												<li><input type="reset" value="Reset" /></li>
+												</ul>
+											</div>
+										</div>
+									  </form>
+_END
 								?>
 							</div>
 						</section>
