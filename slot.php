@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>GrandLucky > Book a time slot</title>
@@ -8,30 +7,28 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-			<div id="page-wrapper">
-					<header id="header">
-						<h1><a href="index.html">Grandlucky</a></h1>
-						<nav id="nav">
-							<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="slot.php">Book a time slot</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</nav>
-					</header>
-
-				<!-- Main -->
-					<article id="main">
-						<header>
+		<div id="page-wrapper">
+			<header id="header">
+				<h1><a href="index.html">Grandlucky</a></h1>
+					<nav id="nav">
+						<ul>
+						<li class="special">
+							<a href="#menu" class="menuToggle"><span>Menu</span></a>
+							<div id="menu">
+								<ul>
+									<li><a href="index.html">Home</a></li>
+									<li><a href="slot.php">Book a time slot</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</header>
+				<article id="main">
+					<header>
 						  <h2>Book a time slot</h2>
 						  <p>Fill the form to book your slot.</p>
-						</header>
+					</header>
 						<section class="wrapper style5">
 							<div class="inner">
 								<?php
@@ -54,10 +51,9 @@
 												<option value="4">Human Resources</option>
 											</select>
 										</div>
-_END;	
-								
+_END;		
 								$query  = "SELECT * FROM (your table)";
-							  	$result = $conn->query($query);
+								$result = $conn->query($query);
 							  	if (!$result) die ("Database access failed: " . $conn->error);
 								$rows = $result->num_rows;
 							
@@ -67,7 +63,16 @@ _END;
 									$result->data_seek($i);
     								$row = $result->fetch_array(MYSQLI_ASSOC);
 									
-									if($_ROW[''])
+									if($_row['count'] == 150) {
+										//dont show
+									} else {
+										echo <<<_END
+										<div class="col-4 col-12-small">
+											<input type="radio" id="demo-priority-low" name="demo priority" checked>
+											<label for="demo-priority-low">Low</label>
+										</div>
+_END;
+									}
 								};
 								
 								
@@ -80,13 +85,11 @@ _END;
 											</div>
 										</div>
 									  </form>
-_END
+_END;
 								?>
 							</div>
 						</section>
 					</article>
-
-				<!-- Footer -->
 					<footer id="footer">
 						<ul class="icons">
 							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -101,8 +104,6 @@ _END
 					</footer>
 
 			</div>
-
-		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
@@ -110,6 +111,5 @@ _END
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
 	</body>
 </html>
