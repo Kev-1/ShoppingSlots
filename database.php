@@ -1,7 +1,7 @@
 <?php // connect.php allows connection to the database
     $hn = '127.0.0.1';
-	$db = 'idn';
-	$un = 'idn';
+	$db = 'slotselection';
+	$un = 'admin';
 	$pw = 'coronasucksdick';
 	
 	$conn = new mysqli($hn,$un,$pw,$db);
@@ -11,7 +11,7 @@
 		echo 'Unable to connect to MySQL, contact System Administrator.';
 	}
 	else {
-
+		// do nothing
     };
 ?>
   

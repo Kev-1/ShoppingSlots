@@ -30,10 +30,13 @@
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
-							  <?php 
+								<?php 
+								require database.php;
+								
+								
 								
 								?>
-						  </div>
+							</div>
 						</section>
 					</article>
 					<footer id="footer">
