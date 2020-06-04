@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>GrandLucky > Book a time slot</title>
+		<title>GrandLucky - Details</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -26,75 +26,93 @@
 			</header>
 				<article id="main">
 					<header>
-						  <h2>Book a time slot</h2>
-						  <p>Fill the form to book your slot.</p>
+					  <h2>TIME SLOT DETAILS</h2>
+					  <p>&nbsp;</p>
 					</header>
 						<section class="wrapper style5">
 							<div class="inner">
 								<?php
 									require database.php;
-									echo <<<_END
-									<form action="confirmation.php" method="post">
-									<div class="row gtr-uniform">
-										<div class="col-6 col-12-xsmall">
-											<input type="text" name="name" id="name" value="" placeholder="Name" />
-										</div>
-										<div class="col-6 col-12-xsmall">
-											<input type="email" name="phone" id="email" value="" placeholder="Phone Number" />
-										</div>
-										<div class="col-12">
-											<select name="demo-category" id="demo-category">
-												<option value="">Select a store</option>
-												<option value="1">Grand Lucky SCBD</option>
-												<option value="2">Grand Lucky Cinere</option>
-												<option value="3">Grand Lucky Radio Dalam</option>
-												<option value="4">Human Resources</option>
-											</select>
-										</div>
-_END;		
-								$query  = "SELECT * FROM (your table)";
-								$result = $conn->query($query);
-							  	if (!$result) die ("Database access failed: " . $conn->error);
-								$rows = $result->num_rows;
-							
-								echo "<h3>Slots available:</h3>";
-								
-								for ($i = 0 ; $i < $rows ; ++$i) {
-									$result->data_seek($i);
-    								$row = $result->fetch_array(MYSQLI_ASSOC);
 									
-									if($_row['count'] == 150) {
-										//dont show
+									if (isset($_POST['number'])) {
+										$number = $_POST['number'];
+										$query = "SELECT * FROM slots where number=\"$number\"";
+										
+										$result = $conn->query($query);
+										if (!$result) die ("Database access failed: " . $conn->error);
+
+										$rows = $result->num_rows;
+	
+										for ($i = 0 ; $i < $rows ; ++$i) {
+											$result->data_seek($i);
+											$row = $result->fetch_array(MYSQLI_ASSOC);
+											
+											$date = $row['date'];
+											$time = $row['time'];
+											$name = $row['name'];
+											$phone = $row['phone'];
+											$code = $row['code'];
+											$email = $row['email'];
+											
+											echo <<<_END
+											<div class="table-wrapper">
+												<h3 align="center">Your unique code:</h3>
+												<h2 align="center">$number</h2>
+												<h3 align="center">Details of person: </h3>
+													<table>
+															<tr>
+																<td>Name:</td>
+																<td>$name</td>
+															</tr>
+															<tr>
+																<td>Phone:</td>
+																<td>$phone</td>
+															</tr>
+															<tr>
+																<td>Email:</td>
+																<td>$email</td>
+															</tr>
+													</table>
+												<h3 align="center">Details of Booking: </h3>
+													<table>
+														<tbody>
+															<tr>
+																<td>Date</td>
+																<td>$date</td>
+															</tr>
+															<tr>
+																<td>Time</td>
+																<td>$time</td>
+															</tr>
+														</tbody>
+													</table>
+												<h4>Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
+											</div>
+_END;
+										}
+										
 									} else {
 										echo <<<_END
-										<div class="col-4 col-12-small">
-											<input type="radio" id="demo-priority-low" name="demo priority" checked>
-											<label for="demo-priority-low">Low</label>
+										<div class="col-12">
+											<h3>Error: You have incorrectly accessed this page. Confused? Click the button below to go back to the main page.</h3>
+											
 										</div>
-_END;
-									}
-								};
-								
-								
-								echo <<<_END
-											<div class="col-12">
-												<ul class="actions">
-												<li><input type="submit" value="Book your slot" class="primary" /></li>
-												<li><input type="reset" value="Reset" /></li>
-												</ul>
-											</div>
+										<div class="col-12">
+											<a href="./index.html" class="button">Go back</a>
 										</div>
-									  </form>
+										
 _END;
+									};
+								
 								?>
 							</div>
 						</section>
 					</article>
 					<footer id="footer">
-<ul class="copyright">
-	  <li>&copy; itskev1 productions</li>
-	  <li>Design by&nbsp;<a href="http://html5up.net">HTML5 UP</a></li>
-</ul>
+						<ul class="copyright">
+							  <li>&copy; itskev1 productions</li>
+							  <li>Design by&nbsp;<a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
 					</footer>
 
 			</div>

@@ -33,8 +33,27 @@
 								<?php 
 								require database.php;
 								
+								if(isset($_POST['location']) && isset($_POST['time']) && isset($_POST['date']) && isset($_POST['name']) && isset($_POST['phone'])) {
+									
+									$location = $_POST['location'];
+									$time = $_POST['time'];
+									$date = $_POST['date'];
+									$name = $_POST['name'];
+									$email = $_POST['email'];
+									$phone = $_POST['phone'];
+									
+									$code = rand(100000, 999999); //random generated code.
+									
+									$findQuery = "select time from slots where code=\"$code\"";
+									$insertQuery = "INSERT into slots ()";
+									
+										
+																	
+									
+								}
 								
-								
+								$result->close();
+								$conn->close(); 
 								?>
 							</div>
 						</section>
