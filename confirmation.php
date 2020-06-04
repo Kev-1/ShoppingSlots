@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Grandlucky > Confirmation</title>
+		<title>Grandlucky - Confirmation</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -47,9 +47,56 @@
 									$findQuery = "select time from slots where code=\"$code\"";
 									$insertQuery = "INSERT into slots ()";
 									
-										
-																	
+									$findResult = $conn->query($findQuery); //check if code is in the DATABASE.
+									if (!$findResult) die ("Database access failed: " . $conn->error);
+									$findRows = $findResult->num_rows;
+									//INCOMPLETE.!!!!
 									
+									//INSERT TO DATABASE
+									$insertResult = $conn->query($query);
+									if (!$insertResult) echo ("Database access failed: " . $conn->error);
+									
+									echo <<<_END
+											<div class="table-wrapper">
+												<h3 align="center">Your unique code:</h3>
+												<h2 align="center">$code</h2>
+												<h3 align="center">Details of person: </h3>
+													<table>
+															<tr>
+																<td>Name:</td>
+																<td>$name</td>
+															</tr>
+															<tr>
+																<td>Phone:</td>
+																<td>$phone</td>
+															</tr>
+															<tr>
+																<td>Email:</td>
+																<td>$email</td>
+															</tr>
+													</table>
+												<h3 align="center">Details of Booking: </h3>
+													<table>
+														<tbody>
+															<tr>
+																<td>Date</td>
+																<td>$date</td>
+															</tr>
+															<tr>
+																<td>Time</td>
+																<td>$time</td>
+															</tr>
+															<tr>
+																<td>Location</td>
+																<td>$location</td>
+															</tr>
+														</tbody>
+													</table>
+												<h4>Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
+											</div>
+_END;
+	
+										
 								}
 								
 								$result->close();

@@ -111,27 +111,26 @@ _END;
 											<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
 										</div>
 _END;		
-								$date = date("Y-m-d");
+								
 								$query  = "SELECT COUNT(id) from slots where date=\"$date\" ";
 								$result = $conn->query($query);
 							  	if (!$result) die ("Database access failed: " . $conn->error);
 								$rows = $result->num_rows;
-										
-							
 								echo "<h3>Slots available:</h3>";
 								
 								for ($i = 0 ; $i < $rows ; ++$i) {
     								$result->data_seek($i);
-    								$row = $result->fetch_array(MYSQLI_ASSOC);
+									$row = $result->fetch_array(MYSQLI_ASSOC);
 									
-									if($row["count"] == 150) {
+									$count = $row['count'];
+									if($count == 150) {
 										//dont show
 									} else {
 										
 										echo <<<_END
 										<div class="col-4 col-12-small">
 											<input type="radio" id="time" name="time" checked>
-											<label for="demo-priority-low">Low</label>
+											<label for="time">Low</label>
 										</div>
 _END;
 									}

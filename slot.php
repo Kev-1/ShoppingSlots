@@ -53,6 +53,7 @@
 											$phone = $row['phone'];
 											$code = $row['code'];
 											$email = $row['email'];
+											$location = $row['location'];
 											
 											echo <<<_END
 											<div class="table-wrapper">
@@ -86,7 +87,7 @@
 															</tr>
 														</tbody>
 													</table>
-												<h4>Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
+												<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
 											</div>
 _END;
 										}
@@ -94,13 +95,11 @@ _END;
 									} else {
 										echo <<<_END
 										<div class="col-12">
-											<h3>Error: You have incorrectly accessed this page. Confused? Click the button below to go back to the main page.</h3>
-											
+											<h3>Error: You have incorrectly accessed this page. Click the button below to go back to the main page.</h3>		
 										</div>
 										<div class="col-12">
 											<a href="./index.html" class="button">Go back</a>
 										</div>
-										
 _END;
 									};
 								
