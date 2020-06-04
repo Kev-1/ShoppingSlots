@@ -40,12 +40,34 @@
 										<div class="row gtr-uniform">
 											<div class="col-12">
 												<h3>Select a store:</h3>
-												<select name="location" id="location">
+												<select name="location" id="location" required>
 													<option value="">Select a store</option>
-													<option value="1">Grand Lucky SCBD</option>
-													<option value="2">Grand Lucky Cinere</option>
-													<option value="3">Grand Lucky Radio Dalam</option>
-													<option value="4">Human Resources</option>
+													<option value="1">GrandLucky SCBD</option>
+													<option value="2">GrandLucky Radio Dalam</option>
+													<option value="3">GrandLucky Cinere</option>
+													<option value="4">GrandLucky Paragon</option>
+													<option value="5">GrandLucky Bali</option>
+												</select>
+											</div>
+_END;
+											$today = strtotime("today");
+											$today2 = date("Y-m-d", $today);
+											$todayText = date("d-m-y", $today);
+											$tomorrow = strtotime("tomorrow");
+											$tomorrow2 = date("Y-m-d", $tomorrow);
+											$tomorrowText = date("d-m-y", $tomorrow);
+											$twodays = strtotime("+2 Days");
+											$twodays2 = date("d-m-y", $twodays);
+											$twodaysText = date("d-m-y", $twodays);
+											
+											echo <<<_END
+											<div class="col-12">
+												<h3>Select a date:</h3>
+												<select name="date" id="date" required>
+													<option value="">Select a Date</option>
+													<option value="$today2">$todayText</option>
+													<option value="$tomorrow2">$tomorrowText</option>
+													<option value="$twodays2">$today</option>
 												</select>
 											</div>
 											<div class="col-12">
@@ -55,9 +77,12 @@
 _END;
 									}
 									
-									if(isset($_POST['location'])) {
+									if(isset($_POST['location']) && isset($_POST['date'])) { //checks location.
 										
 										$location = $_POST['location'];
+										$date = $_POST['date'];
+										$dateText = date("d-m-y", $date);
+										
 										if($location == 1) {
 											$location_name = "GrandLucky SCBD";
 										} else if($location == 2) {
@@ -69,8 +94,12 @@ _END;
 										} else if($location == 5) {
 											$location_name = "GrandLucky Bali";
 										}
+										
+									
+										
 									echo <<<_END
 									<h3>Store Selected: "$location_name"</h3>
+									<h3>Date Selected: "$dateText"</h3>
 									<form action="confirmation.php" method="post">
 									<div class="row gtr-uniform">
 										<div class="col-6 col-12-xsmall">
@@ -83,21 +112,23 @@ _END;
 											<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
 										</div>
 _END;		
-										
-								$query  = "SELECT * FROM slots where location=\"$location\"";
+								$date = date("Y-m-d");
+								$query  = "SELECT COUNT(id) from slots where date=\"$date\" ";
 								$result = $conn->query($query);
 							  	if (!$result) die ("Database access failed: " . $conn->error);
 								$rows = $result->num_rows;
+										
 							
 								echo "<h3>Slots available:</h3>";
 								
 								for ($i = 0 ; $i < $rows ; ++$i) {
-									$result->data_seek($i);
+    								$result->data_seek($i);
     								$row = $result->fetch_array(MYSQLI_ASSOC);
 									
-									if($row['count'] == 150) {
+									if($row["count"] == 150) {
 										//dont show
 									} else {
+										
 										echo <<<_END
 										<div class="col-4 col-12-small">
 											<input type="radio" id="time" name="time" checked>
@@ -105,7 +136,8 @@ _END;
 										</div>
 _END;
 									}
-								};
+								}
+								
 								
 								
 								echo <<<_END
@@ -118,6 +150,8 @@ _END;
 									  </form>
 _END;
 									}
+								$result->close();
+								$conn->close(); 
 								?>
 							</div>
 						</section>
