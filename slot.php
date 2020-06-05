@@ -42,63 +42,73 @@
 										if (!$result) die ("Database access failed: " . $conn->error);
 
 										$rows = $result->num_rows;
-	
-										for ($i = 0 ; $i < $rows ; ++$i) {
-											$result->data_seek($i);
-											$row = $result->fetch_array(MYSQLI_ASSOC);
-											
-											$date = $row['date'];
-											$time = $row['time'];
-											$name = $row['name'];
-											$phone = $row['phone'];
-											$code = $row['code'];
-											$email = $row['email'];
-											$location = $row['location'];
-											
+										if($rows >= 0) {
+											for ($i = 0 ; $i < $rows ; ++$i) {
+												$result->data_seek($i);
+												$row = $result->fetch_array(MYSQLI_ASSOC);
+
+												$date = $row['date'];
+												$time = $row['time'];
+												$name = $row['name'];
+												$phone = $row['phone'];
+												$code = $row['code'];
+												$email = $row['email'];
+												$location = $row['location'];
+
+												echo <<<_END
+												<div class="col-12">
+													<h3 align="center">Your unique code:</h3>
+													<h2 align="center">$number</h2>
+													<h3 align="center">Details of person: </h3>
+														<div class="table-wrapper">
+														<table>
+																<tr>
+																	<td>Name:</td>
+																	<td>$name</td>
+																</tr>
+																<tr>
+																	<td>Phone:</td>
+																	<td>$phone</td>
+																</tr>
+																<tr>
+																	<td>Email:</td>
+																	<td>$email</td>
+																</tr>
+														</table>
+														</div>
+													<h3 align="center">Details of Booking: </h3>
+														<div class="table-wrapper">
+														<table>
+															<tbody>
+																<tr>
+																	<td>Date</td>
+																	<td>$date</td>
+																</tr>
+																<tr>
+																	<td>Time</td>
+																	<td>$time</td>
+																</tr>
+																<tr>
+																	<td>Location</td>
+																	<td>$location</td>
+																</tr>
+															</tbody>
+														</table>
+														</div>
+													<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
+												</div>
+_END;
+											}
+										} else {
 											echo <<<_END
 											<div class="col-12">
-												<h3 align="center">Your unique code:</h3>
-												<h2 align="center">$number</h2>
-												<h3 align="center">Details of person: </h3>
-													<div class="table-wrapper">
-													<table>
-															<tr>
-																<td>Name:</td>
-																<td>$name</td>
-															</tr>
-															<tr>
-																<td>Phone:</td>
-																<td>$phone</td>
-															</tr>
-															<tr>
-																<td>Email:</td>
-																<td>$email</td>
-															</tr>
-													</table>
-													</div>
-												<h3 align="center">Details of Booking: </h3>
-													<div class="table-wrapper">
-													<table>
-														<tbody>
-															<tr>
-																<td>Date</td>
-																<td>$date</td>
-															</tr>
-															<tr>
-																<td>Time</td>
-																<td>$time</td>
-															</tr>
-															<tr>
-																<td>Location</td>
-																<td>$location</td>
-															</tr>
-														</tbody>
-													</table>
-													</div>
-												<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
+												<h3>Error: Code entered is invalid!</h3>		
+											</div>
+											<div class="col-12">
+												<a href="./index.html" class="button">Go back</a>
 											</div>
 _END;
-										}
+										};
 										
 									} else {
 										echo <<<_END
@@ -110,7 +120,8 @@ _END;
 										</div>
 _END;
 									};
-								
+								$result->close();
+								$conn->close(); 
 								?>
 							</div>
 						</section>
