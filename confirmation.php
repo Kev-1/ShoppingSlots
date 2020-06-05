@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Grandlucky - Confirmation</title>
@@ -27,6 +28,7 @@
 					<article id="main">
 						<header>
 						  <h2>Your booking slot</h2>
+							<p>Your reservation</p>
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
@@ -56,7 +58,7 @@
 									
 									//INSERT TO DATABASE
 									$insertResult = $conn->query($query);
-									if (!$insertResult) echo ("Database access failed: " . $conn->error);
+									if (!$insertResult) echo ("INSERT failed: " . $conn->error);
 									
 									echo <<<_END
 											<div class="table-wrapper">
@@ -94,7 +96,7 @@
 															</tr>
 														</tbody>
 													</table>
-												<h4>Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
+												<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
 											</div>
 _END;
 	

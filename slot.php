@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<title>GrandLucky - Details</title>
@@ -36,7 +37,7 @@
 									
 									if (isset($_POST['number'])) {
 										$number = $_POST['number'];
-										$query = "SELECT * FROM slots where number=\"$number\"";
+										$query = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.location_id where number=\"$number\"";
 										
 										$result = $conn->query($query);
 										if (!$result) die ("Database access failed: " . $conn->error);
@@ -53,7 +54,7 @@
 												$phone = $row['phone'];
 												$code = $row['code'];
 												$email = $row['email'];
-												$location = $row['location'];
+												$location = $row['location_name'];
 
 												echo <<<_END
 												<div class="col-12">
@@ -79,20 +80,18 @@
 													<h3 align="center">Details of Booking: </h3>
 														<div class="table-wrapper">
 														<table>
-															<tbody>
 																<tr>
-																	<td>Date</td>
+																	<td>Date:</td>
 																	<td>$date</td>
 																</tr>
 																<tr>
-																	<td>Time</td>
+																	<td>Time:</td>
 																	<td>$time</td>
 																</tr>
 																<tr>
-																	<td>Location</td>
+																	<td>Location:</td>
 																	<td>$location</td>
 																</tr>
-															</tbody>
 														</table>
 														</div>
 													<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>

@@ -1,4 +1,5 @@
-   <html>
+<!DOCTYPE HTML>
+<html>
 	<head>
 		<title>GrandLucky > Book a time slot</title>
 		<meta charset="utf-8" />
