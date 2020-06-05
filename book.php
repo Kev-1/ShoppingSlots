@@ -33,24 +33,31 @@
 						<section class="wrapper style5">
 							<div class="inner">
 								<?php
-									require database.php;
+									require 'database.php';
 								
 									if (isset($_POST['location']) == false) {
+										$locationQuery  = "SELECT * FROM locations";
+										$locationResult = $conn->query($locationQuery);
+										if (!$locationResult) die ("Database access failed: " . $conn->error);
+										$locationRows = $locationResult->num_rows;
+										
 										echo <<<_END
 										<form action="book.php" method="post">
 										<div class="row gtr-uniform">
 											<div class="col-12">
 												<h3>Select a store:</h3>
 												<select name="location" id="location" required>
-													<option value="">Select a store</option>
-													<option value="1">GrandLucky SCBD</option>
-													<option value="2">GrandLucky Radio Dalam</option>
-													<option value="3">GrandLucky Cinere</option>
-													<option value="4">GrandLucky Paragon</option>
-													<option value="5">GrandLucky Bali</option>
-												</select>
-											</div>
+													<option value="">Select a Location</option>
 _END;
+										
+										for ($i = 0 ; $i < $locationRows ; ++$i) {
+											$result->data_seek($i);
+											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
+
+											echo '<option value='.$row['location_id'].'>'.$row['location_name'].'</option>';
+										}
+										
+
 											$today = strtotime("today");
 											$today2 = date("Y-m-d", $today);
 											$todayText = date("d-m-y", $today);
@@ -84,70 +91,53 @@ _END;
 										$date = $_POST['date'];
 										$dateText = date("d-m-y", $date);
 										
-										if($location == 1) {
-											$location_name = "GrandLucky SCBD";
-										} else if($location == 2) {
-											$location_name = "GrandLucky Radio Dalam";
-										} else if($location == 3) {
-											$location_name = "GrandLucky Cinere";
-										} else if($location == 4) {
-											$location_name = "GrandLucky Paragon";
-										} else if($location == 5) {
-											$location_name = "GrandLucky Bali";
-										};
+//										if($location == 1) {
+//											$location_name = "GrandLucky SCBD";
+//										} else if($location == 2) {
+//											$location_name = "GrandLucky Radio Dalam";
+//										} else if($location == 3) {
+//											$location_name = "GrandLucky Cinere";
+//										} else if($location == 4) {
+//											$location_name = "GrandLucky Paragon";
+//										} else if($location == 5) {
+//											$location_name = "GrandLucky Bali";
+//										};
+										
+										$locationQuery  = "SELECT * FROM locations where location_id=$location";
+										$locationResult = $conn->query($locationQuery);
+										if (!$locationResult) die ("Database access failed: " . $conn->error);
+										$locationRows = $locationResult->num_rows;
 										
 										
-									echo <<<_END
-									<h3>Store Selected: "$location_name"</h3>
-									<h3>Date Selected: "$dateText"</h3>
-									<form action="confirmation.php" method="post">
-									<div class="row gtr-uniform">
-										<div class="col-6 col-12-xsmall">
-											<input type="text" name="name" id="name" value="" placeholder="Name*" required/>
-										</div>
-										<div class="col-6 col-12-xsmall">
-											<input type="email" name="phone" id="phone" value="" placeholder="Phone Number*" required/>
-										</div>
-										<div class="col-12">
-											<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
-										</div>
-_END;		
+										for ($i = 0 ; $i < $locationRows ; ++$i) {
+											$result->data_seek($i);
+											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
+											echo '<h3>Selected location: '.$locationRow['location_name'].'</h3>';
+										}
+										
+										echo '<h3>Selected Date: '.$dateText.'</h3>';
 								
-								$query  = "SELECT COUNT(id) from slots where date=\"$date\" ";
-								$result = $conn->query($query);
-							  	if (!$result) die ("Database access failed: " . $conn->error);
-								$rows = $result->num_rows;
-								echo "<h3>Slots available:</h3>";
-								
-								for ($i = 0 ; $i < $rows ; ++$i) {
-    								$result->data_seek($i);
-									$row = $result->fetch_array(MYSQLI_ASSOC);
-									
-									$count = $row['count'];
-									if($count == 150) {
-										//dont show
-									} else {
-										
+										$timeQuery  = "SELECT * FROM //incomplete!";
+										$timeResult = $conn->query($timeQuery);
+										if (!$timeResult) die ("Database access failed: " . $conn->error);
+										$timeRows = $timeResult->num_rows;
+
+										for ($j = 0 ; $j < $timeRows ; ++$j) {
+											$timeResult->data_seek($i);
+											$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
+											echo '<option value='.$row['location_id'].'>'.$row['location_name'].'</option>';
+										}
+
+
 										echo <<<_END
-										<div class="col-4 col-12-small">
-											<input type="radio" id="time" name="time" checked>
-											<label for="time">Low</label>
-										</div>
-_END;
-									}
-								};
-								
-								
-								
-								echo <<<_END
-											<div class="col-12">
-												<ul class="actions">
-												<li><input type="submit" value="Book your slot" class="primary" /></li>
-												</ul>
-											</div>
-										</div>
-									  </form>
-_END;
+													<div class="col-12">
+														<ul class="actions">
+														<li><input type="submit" value="Book your slot" class="primary" /></li>
+														</ul>
+													</div>
+												</div>
+											  </form>
+		_END;
 									}
 								$result->close();
 								$conn->close(); 

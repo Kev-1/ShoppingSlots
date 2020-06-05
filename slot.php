@@ -43,7 +43,7 @@
 										if (!$result) die ("Database access failed: " . $conn->error);
 
 										$rows = $result->num_rows;
-										if($rows >= 0) {
+										if($rows > 0) {
 											for ($i = 0 ; $i < $rows ; ++$i) {
 												$result->data_seek($i);
 												$row = $result->fetch_array(MYSQLI_ASSOC);
