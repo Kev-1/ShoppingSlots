@@ -57,6 +57,11 @@ _END;
 											echo '<option value='.$row['location_id'].'>'.$row['location_name'].'</option>';
 										}
 										
+										echo <<<_END
+												</select>
+											</div>
+_END;
+										
 
 											$today = strtotime("today");
 											$today2 = date("Y-m-d", $today);
@@ -87,45 +92,62 @@ _END;
 									
 									if(isset($_POST['location']) && isset($_POST['date'])) { //checks location.
 										
+										//set variables
 										$location = $_POST['location'];
 										$date = $_POST['date'];
 										$dateText = date("d-m-y", $date);
 										
-//										if($location == 1) {
-//											$location_name = "GrandLucky SCBD";
-//										} else if($location == 2) {
-//											$location_name = "GrandLucky Radio Dalam";
-//										} else if($location == 3) {
-//											$location_name = "GrandLucky Cinere";
-//										} else if($location == 4) {
-//											$location_name = "GrandLucky Paragon";
-//										} else if($location == 5) {
-//											$location_name = "GrandLucky Bali";
-//										};
-										
+										//get loc name.
 										$locationQuery  = "SELECT * FROM locations where location_id=$location";
 										$locationResult = $conn->query($locationQuery);
 										if (!$locationResult) die ("Database access failed: " . $conn->error);
 										$locationRows = $locationResult->num_rows;
-										
-										
 										for ($i = 0 ; $i < $locationRows ; ++$i) {
 											$result->data_seek($i);
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
 											echo '<h3>Selected location: '.$locationRow['location_name'].'</h3>';
 										}
 										
+										//display date
 										echo '<h3>Selected Date: '.$dateText.'</h3>';
-								
+										
+										echo <<<_END
+										<form action="confirmation.php" method="post">
+										<div class="row gtr-uniform">
+											<div class="col-6 col-12-xsmall">
+												<input type="text" name="name" id="name" value="" placeholder="Name*" required/>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<input type="email" name="phone" id="phone" value="" placeholder="Phone Number*" required/>
+											</div>
+											<div class="col-12">
+												<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
+											</div>
+											<div>
+												<h3>Select a time</h3>
+											</div>
+_END;
+										
 										$timeQuery  = "SELECT * FROM //incomplete!";
 										$timeResult = $conn->query($timeQuery);
 										if (!$timeResult) die ("Database access failed: " . $conn->error);
 										$timeRows = $timeResult->num_rows;
-
-										for ($j = 0 ; $j < $timeRows ; ++$j) {
-											$timeResult->data_seek($i);
-											$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
-											echo '<option value='.$row['location_id'].'>'.$row['location_name'].'</option>';
+										
+										$time2 = strtotime("Today 09:00am");
+										$time = date("h:i:s", $time2);
+										for($k = 0; $k < 12; ++$k) {
+											for ($j = 0 ; $j < $timeRows ; ++$j) {
+												$timeResult->data_seek($i);
+												$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
+												$remaining = 150 - $timeRow['COUNT(id)'];
+												echo <<<_END
+												<div class="col-4 col-12-small">
+													<input type="radio" id="time" name="time" value="$time">
+													<label for="demo-priority-low">$time ($remaining Remaining)</label>
+												</div>			
+_END;
+											}
+											$time->modify('+1 hour');
 										}
 
 
@@ -137,7 +159,7 @@ _END;
 													</div>
 												</div>
 											  </form>
-		_END;
+_END;
 									}
 								$result->close();
 								$conn->close(); 
