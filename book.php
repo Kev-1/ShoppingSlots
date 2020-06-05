@@ -49,14 +49,11 @@
 												<select name="location" id="location" required>
 													<option value="">Select a Location</option>
 _END;
-										
 										for ($i = 0 ; $i < $locationRows ; ++$i) {
-											$result->data_seek($i);
+											$locationResult->data_seek($i);
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
-
-											echo '<option value='.$row['location_id'].'>'.$row['location_name'].'</option>';
-										}
-										
+											echo "<option value=".$locationRow['location_id'].">".$locationRow['location_name']."</option>";
+										};
 										echo <<<_END
 												</select>
 											</div>
@@ -103,7 +100,7 @@ _END;
 										if (!$locationResult) die ("Database access failed: " . $conn->error);
 										$locationRows = $locationResult->num_rows;
 										for ($i = 0 ; $i < $locationRows ; ++$i) {
-											$result->data_seek($i);
+											$locationResult->data_seek($i);
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
 											echo '<h3>Selected location: '.$locationRow['location_name'].'</h3>';
 										}
