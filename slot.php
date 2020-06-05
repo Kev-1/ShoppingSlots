@@ -32,7 +32,7 @@
 						<section class="wrapper style5">
 							<div class="inner">
 								<?php
-									require database.php;
+									require 'database.php';
 									
 									if (isset($_POST['number'])) {
 										$number = $_POST['number'];
@@ -56,10 +56,11 @@
 											$location = $row['location'];
 											
 											echo <<<_END
-											<div class="table-wrapper">
+											<div class="col-12">
 												<h3 align="center">Your unique code:</h3>
 												<h2 align="center">$number</h2>
 												<h3 align="center">Details of person: </h3>
+													<div class="table-wrapper">
 													<table>
 															<tr>
 																<td>Name:</td>
@@ -74,7 +75,9 @@
 																<td>$email</td>
 															</tr>
 													</table>
+													</div>
 												<h3 align="center">Details of Booking: </h3>
+													<div class="table-wrapper">
 													<table>
 														<tbody>
 															<tr>
@@ -85,8 +88,13 @@
 																<td>Time</td>
 																<td>$time</td>
 															</tr>
+															<tr>
+																<td>Location</td>
+																<td>$location</td>
+															</tr>
 														</tbody>
 													</table>
+													</div>
 												<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
 											</div>
 _END;

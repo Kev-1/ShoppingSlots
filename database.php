@@ -1,7 +1,7 @@
 <?php // connect.php allows connection to the database
     $hn = '127.0.0.1';
-	$db = 'slotselection';
-	$un = 'admin';
+	$db = 'shoppingslot';
+	$un = 'corona';
 	$pw = 'coronasucksdick';
 	
 	$conn = new mysqli($hn,$un,$pw,$db);
