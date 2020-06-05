@@ -39,10 +39,12 @@
 									$time = $_POST['time'];
 									$date = $_POST['date'];
 									$name = $_POST['name'];
-									$email = $_POST['email'];
+									if (isset($_POST['email'])) {
+										$email = $_POST['email'];
+									}
 									$phone = $_POST['phone'];
 									
-									$code = rand(100000, 999999); //random generated code.
+									$code = rand(100000000, 999999999); //random generated code.
 									
 									$findQuery = "select time from slots where code=\"$code\"";
 									$insertQuery = "INSERT into slots ()";
