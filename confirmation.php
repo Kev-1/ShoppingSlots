@@ -33,7 +33,7 @@
 						<section class="wrapper style5">
 							<div class="inner">
 								<?php 
-								require database.php;
+								require 'database.php';
 								
 								if(isset($_POST['location']) && isset($_POST['time']) && isset($_POST['date']) && isset($_POST['name']) && isset($_POST['phone'])) {
 									
@@ -83,15 +83,15 @@
 													<table>
 														<tbody>
 															<tr>
-																<td>Date</td>
+																<td>Date:</td>
 																<td>$date</td>
 															</tr>
 															<tr>
-																<td>Time</td>
+																<td>Time:</td>
 																<td>$time</td>
 															</tr>
 															<tr>
-																<td>Location</td>
+																<td>Location:</td>
 																<td>$location</td>
 															</tr>
 														</tbody>
@@ -115,7 +115,6 @@ _END;
 						  <li>Design <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</footer>
-
 			</div>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>

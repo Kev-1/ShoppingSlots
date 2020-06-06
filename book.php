@@ -49,11 +49,13 @@
 												<select name="location" id="location" required>
 													<option value="">Select a Location</option>
 _END;
+										
 										for ($i = 0 ; $i < $locationRows ; ++$i) {
 											$locationResult->data_seek($i);
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
 											echo "<option value=".$locationRow['location_id'].">".$locationRow['location_name']."</option>";
 										};
+										
 										echo <<<_END
 												</select>
 											</div>
@@ -91,7 +93,8 @@ _END;
 										
 										//set variables
 										$location = $_POST['location'];
-										$date = $_POST['date'];
+										$date = strtotime($_POST['date']);
+										$date2 = date("y-m-d", $date);
 										$dateText = date("d-m-y", $date);
 										
 										//get loc name.
@@ -120,35 +123,34 @@ _END;
 											<div class="col-12">
 												<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
 											</div>
-											<div>
+											<div class ="col-12">
 												<h3>Select a time</h3>
-											</div>
+												<select name="date" id="date" required>
+													<option value="">Select a time</option>
+											
 _END;
-										
-										$timeQuery  = "SELECT * FROM //incomplete!";
-										$timeResult = $conn->query($timeQuery);
-										if (!$timeResult) die ("Database access failed: " . $conn->error);
-										$timeRows = $timeResult->num_rows;
-										
 										$time2 = strtotime("Today 09:00am");
 										$time = date("h:i:s", $time2);
+										
 										for($k = 0; $k < 12; ++$k) {
+											$timeQuery  = "SELECT COUNT(ID) FROM slots WHERE time=\"$time\"";
+											$timeResult = $conn->query($timeQuery);
+											if (!$timeResult) die ("Database access failed: " . $conn->error);
+											$timeRows = $timeResult->num_rows;
 											for ($j = 0 ; $j < $timeRows ; ++$j) {
 												$timeResult->data_seek($i);
 												$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
 												$remaining = 150 - $timeRow['COUNT(id)'];
-												echo <<<_END
-												<div class="col-4 col-12-small">
-													<input type="radio" id="time" name="time" value="$time">
-													<label for="demo-priority-low">$time ($remaining Remaining)</label>
-												</div>			
-_END;
+												echo "<option value=".$time.">$time ($remaining)</option>";
 											}
 											$time->modify('+1 hour');
+											echo $time;
 										}
 
 
 										echo <<<_END
+														</select>
+													</div>
 													<div class="col-12">
 														<ul class="actions">
 														<li><input type="submit" value="Book your slot" class="primary" /></li>
@@ -157,7 +159,8 @@ _END;
 												</div>
 											  </form>
 _END;
-									}
+									};
+								//close connection
 								$result->close();
 								$conn->close(); 
 								?>
