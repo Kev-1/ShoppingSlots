@@ -87,6 +87,7 @@ _END;
 											</div>
 										</div>
 _END;
+										$locationResult->close();
 									};
 									
 									if(isset($_POST['location']) && isset($_POST['date'])) { //checks location.
@@ -140,9 +141,9 @@ _END;
 											for ($j = 0 ; $j < $timeRows ; ++$j) {
 												$timeResult->data_seek($i);
 												$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
-												$remaining = 150 - $timeRow['COUNT(id)'];
-												echo "<option value=".$time.">$time ($remaining)</option>";
+												$remaining = 150 - $timeRow['COUNT(id)'];	
 											}
+											echo "<option value=".$time.">$time ($remaining Remaining)</option>";
 											$time->modify('+1 hour');
 											echo $time;
 										}
@@ -161,7 +162,7 @@ _END;
 _END;
 									};
 								//close connection
-								$result->close();
+								$timeResult->close();
 								$conn->close(); 
 								?>
 							</div>
