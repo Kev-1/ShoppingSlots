@@ -115,6 +115,8 @@ _END;
 										echo <<<_END
 										<form action="confirmation.php" method="post">
 										<div class="row gtr-uniform">
+											<input type="hidden" id="location" name="location" value="$location">
+											<input type="hidden" id="date" name="date" value="$date2">
 											<div class="col-6 col-12-xsmall">
 												<input type="text" name="name" id="name" value="" placeholder="Name*" required/>
 											</div>
@@ -126,7 +128,7 @@ _END;
 											</div>
 											<div class ="col-12">
 												<h3>Select a time</h3>
-												<select name="date" id="date" required>
+												<select name="time" id="time" required>
 													<option value="">Select a time</option>
 											
 _END;
