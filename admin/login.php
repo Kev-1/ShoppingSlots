@@ -42,6 +42,21 @@
 										<div class="col-12" align="center">
 											<input type="submit" class="primary">
 										</div>
+										<?php
+											if($_GET['error'] == 1) {
+												echo <<<_END
+												<div class="col-12" align="center">
+													<h3 align="center">Error: Incorrect username or password!</h3>
+												</div>
+_END;
+											} else if($_GET['error'] == 2) {
+												echo <<<_END
+												<div class="col-12" align="center">
+													<h3 align="center">Error: No username or password has been entered!</h3>
+												</div>
+_END;
+											}
+										?>
 									</div>
 						 		</form>
 							</div>
