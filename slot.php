@@ -18,7 +18,7 @@
 							<div id="menu">
 								<ul>
 									<li><a href="index.html">Home</a></li>
-									<li><a href="slot.php">Book a time slot</a></li>
+									<li><a href="book.php">Book a time slot</a></li>
 								</ul>
 							</div>
 						</li>
@@ -112,7 +112,7 @@ _END;
 									} else {
 										echo <<<_END
 										<div class="col-12">
-											<h3>Error: You have incorrectly accessed this page. Click the button below to go back to the main page.</h3>		
+											<h3>Error: No input was recieved. Click the button below to go back to the main page.</h3>		
 										</div>
 										<div class="col-12">
 											<a href="./index.html" class="button">Go back</a>

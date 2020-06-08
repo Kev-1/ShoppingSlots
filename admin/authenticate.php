@@ -8,16 +8,12 @@ if(isset($_POST['username']) && isset($_POST['password']))
 	if (!$result) die ("Database access failed: " . $conn->error);
 	$rows = $result->num_rows;
 	if($rows > 0) {
-        // auth okay, setup session
         $_SESSION['user'] = $_POST['username'];
-        // redirect to required page
         header( "Location: admin.php" );
      } else {
-        // didn't auth go back to loginform
         header( "Location: login.php?error=1" );
      }
- } else {
-     // username and password not given so go back to login
+} else {
      header( "Location: login.php?error=2" );
- }
+}
 ?>
