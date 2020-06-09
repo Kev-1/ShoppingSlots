@@ -34,7 +34,7 @@
 									if(!isset($_SESSION['user'])) {
 										header("Location: login.php");
 									} else {
-									$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.id";
+									$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.id where date=$date AND time=$time AND location=$location";
 									$result = $conn->query($query);
 									if (!$result) die ("Database access failed: " . $conn->error);
 									$rows = $result->num_rows;
