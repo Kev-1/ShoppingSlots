@@ -122,7 +122,6 @@ _END;
 										if (!$result) die ("Database access failed: " . $conn->error);
 										$rows = $result->num_rows;
 										
-									
 										echo <<<_END
 										<div class="col-12">
 											<h2>Search Results</h2>
@@ -153,6 +152,7 @@ _END;
 											echo '<td>'.$row['location_name'].'</td>';
 											echo '</tr>';
 										}
+										
 										echo <<<_END
 											</table>
 										</div>
