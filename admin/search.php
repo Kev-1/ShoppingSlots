@@ -46,7 +46,7 @@
 										<form action="search.php" method="post">
 										<div class="row gtr-uniform">
 											<div class="col-12">
-												<h3>Select a store:</h3>
+												<h2>Search the database</h2>
 												<select name="location" id="location" required>
 													<option value="">Select a Location</option>
 _END;
@@ -75,7 +75,6 @@ _END;
 											
 											echo <<<_END
 											<div class="col-12">
-												<h3>Select a date:</h3>
 												<select name="date" id="date" required>
 													<option value="">Select a Date</option>
 													<option value="$today2">$todayText</option>
@@ -84,7 +83,6 @@ _END;
 												</select>
 											</div>
 											<div class="col-12">
-												<h3>Select a time:</h3>
 												<select name="time" id="time" required>
 												
 											
@@ -98,6 +96,13 @@ _END;
 										}
 										
 										echo <<<_END
+												</select>
+											</div>
+											<div class="col-12">
+												<input type="text" name="code" id="code" placeholder="Unique Code (optional)">
+											</div>
+											<div class="col-12">
+												<input type="text" name="name" id="name" placeholder="Name (optional)">
 											</div>
 											<div class="col-12">
 												<input type="submit">
@@ -120,9 +125,7 @@ _END;
 									
 										echo <<<_END
 										<div class="col-12">
-											<h2>Staff panel</h2>
-											<a href="search.php" class="button">Search Specific Data</a>
-											<div class="table-wrapper">
+											<h2>Search Results</h2>
 												<table>
 													<thead>
 														<tr>

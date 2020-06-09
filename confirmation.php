@@ -55,7 +55,7 @@
 									if (!$findResult) die ("Database access failed: " . $conn->error);
 									$findRows = $findResult->num_rows;
 									//INCOMPLETE.!!!!
-									
+
 									//INSERT TO DATABASE
 									$insertResult = $conn->query($query);
 									if (!$insertResult) echo ("INSERT failed: " . $conn->error);
