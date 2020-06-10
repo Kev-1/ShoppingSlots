@@ -48,17 +48,25 @@
 									
 									$code = rand(100000000, 999999999); //random generated code.
 									
-									$findQuery = "select time from slots where code=\"$code\"";
-									$insertQuery = "INSERT into slots ()";
+									function checkExists($checkExistInt) {
+										$findQuery = "select time from slots where code=\"$checkExistInt\"";
+										$insertQuery = "INSERT into slots ()";
+										$findResult = $conn->query($findQuery);
+										if (!$findResult) die ("Database access failed: " . $conn->error);
+										$findRows = $findResult->num_rows;
+										if($findRows > 0) {
+											return 1;
+										} else {
+											return 0;
+										}
+									}
 									
-									$findResult = $conn->query($findQuery); //check if code is in the DATABASE.
-									if (!$findResult) die ("Database access failed: " . $conn->error);
-									$findRows = $findResult->num_rows;
-									//INCOMPLETE.!!!!
+									$verifyCode = checkExists($code);
+									//while loop to check if checkExists will return one.
 
-									//INSERT TO DATABASE
+									//INSERT TO DATABASE	
 									$insertResult = $conn->query($query);
-									if (!$insertResult) echo ("INSERT failed: " . $conn->error);
+									if (!$insertResult) echo ("INSERT failed: " . $conn->error . "Report to administrator.");
 									
 									echo <<<_END
 											<div class="table-wrapper">
