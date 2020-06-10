@@ -34,14 +34,14 @@
 									if(!isset($_SESSION['user'])) {
 										header("Location: login.php");
 									} else {
-									
-									
+
+
 									if (isset($_POST['location']) == false) {
 										$locationQuery  = "SELECT * FROM locations";
 										$locationResult = $conn->query($locationQuery);
 										if (!$locationResult) die ("Database access failed: " . $conn->error);
 										$locationRows = $locationResult->num_rows;
-										
+
 										echo <<<_END
 										<form action="search.php" method="post">
 										<div class="row gtr-uniform">
@@ -50,18 +50,18 @@
 												<select name="location" id="location" required>
 													<option value="">Select a Location</option>
 _END;
-										
+
 										for ($i = 0 ; $i < $locationRows ; ++$i) {
 											$locationResult->data_seek($i);
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
 											echo "<option value=".$locationRow['location_id'].">".$locationRow['location_name']."</option>";
 										};
-										
+
 										echo <<<_END
 												</select>
 											</div>
 _END;
-										
+
 
 											$today = strtotime("today");
 											$today2 = date("Y-m-d", $today);
@@ -72,7 +72,7 @@ _END;
 											$twodays = strtotime("+2 Days");
 											$twodays2 = date("d-m-y", $twodays);
 											$twodaysText = date("d-m-y", $twodays);
-											
+
 											echo <<<_END
 											<div class="col-12">
 												<select name="date" id="date" required>
@@ -84,17 +84,17 @@ _END;
 											</div>
 											<div class="col-12">
 												<select name="time" id="time" required>
-												
-											
+
+
 _END;
 										$time2 = strtotime("Today 09:00am");
 										$time = date("h:i:s", $time2);
-										
+
 										for($k = 0; $k < 12; ++$k) {
 											echo '<option value='.$time.'>'.$time.'</option>';
 											$time->modify('+1 hour');
 										}
-										
+
 										echo <<<_END
 												</select>
 											</div>
@@ -110,18 +110,26 @@ _END;
 										</div>
 _END;
 									};
-										
+
 									if(isset($_POST['location']) && isset($_POST['date']) && isset($_POST['time'])) {
-									
+
 										$time = $_POST['time'];
 										$date = $_POST['date'];
 										$location = $_POST['location'];
-										
+
 										$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.id where date=$date AND time=$time AND location=$location";
+										if(isset($_POST['code'])) {
+											$code = $_POST['code'];
+										}
+
+										if(isset($_POST['name'])) {
+											$name = $_POST['name'];
+										}
+										
 										$result = $conn->query($query);
 										if (!$result) die ("Database access failed: " . $conn->error);
 										$rows = $result->num_rows;
-										
+
 										echo <<<_END
 										<div class="col-12">
 											<h2>Search Results</h2>
@@ -152,7 +160,7 @@ _END;
 											echo '<td>'.$row['location_name'].'</td>';
 											echo '</tr>';
 										}
-										
+
 										echo <<<_END
 											</table>
 										</div>
