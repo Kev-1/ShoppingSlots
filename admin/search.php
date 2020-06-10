@@ -36,7 +36,7 @@
 									} else {
 
 
-									if (isset($_POST['location']) == false) {
+									if (isset($_POST['location']) == false && isset($_POST['date']) == false && isset($_POST['time']) == false) {
 										$locationQuery  = "SELECT * FROM locations";
 										$locationResult = $conn->query($locationQuery);
 										if (!$locationResult) die ("Database access failed: " . $conn->error);
@@ -84,8 +84,6 @@ _END;
 											</div>
 											<div class="col-12">
 												<select name="time" id="time" required>
-
-
 _END;
 										$time2 = strtotime("Today 09:00am");
 										$time = date("h:i:s", $time2);
@@ -118,12 +116,15 @@ _END;
 										$location = $_POST['location'];
 
 										$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.id where date=$date AND time=$time AND location=$location";
+										
 										if(isset($_POST['code'])) {
 											$code = $_POST['code'];
+											$query = $query .' '. $code;
 										}
 
 										if(isset($_POST['name'])) {
 											$name = $_POST['name'];
+											$query = $query .' '. $name;
 										}
 										
 										$result = $conn->query($query);

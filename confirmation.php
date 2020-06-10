@@ -48,7 +48,7 @@
 
 									$code = rand(100000000, 999999999); //random generated code.
 
-									function checkExists($checkExistInt) {
+									function checkExists($checkExistInt) { 
 										$findQuery = "select time from slots where code=\"$checkExistInt\"";
 										$findResult = $conn->query($findQuery);
 										if (!$findResult) die ("Database access failed: " . $conn->error);

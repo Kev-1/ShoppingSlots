@@ -54,7 +54,7 @@ _END;
 											$locationResult->data_seek($i);
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
 											echo "<option value=".$locationRow['location_id'].">".$locationRow['location_name']."</option>";
-										};
+										}
 
 										echo <<<_END
 												</select>
@@ -86,6 +86,7 @@ _END;
 												<input type="submit"></input>
 											</div>
 										</div>
+										</form>
 _END;
 										$locationResult->close();
 									};
@@ -146,10 +147,11 @@ _END;
 												$remaining = 150 - $timeRow['COUNT(id)'];
 											}
 											echo "<option value=".$time.">$time ($remaining Remaining)</option>";
-											$time->modify('+1 hour');
+											$time = time('h:i:s', strtotime($time . " +1 hour"));
 											echo $time;
 										}
-
+										
+										$timeResult->close();
 
 										echo <<<_END
 														</select>
@@ -164,8 +166,7 @@ _END;
 _END;
 									};
 								//close connection
-								$timeResult->close();
-								$locationQuery->close();
+								
 								$conn->close();
 								?>
 							</div>
