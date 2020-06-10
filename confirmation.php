@@ -50,7 +50,6 @@
 
 									function checkExists($checkExistInt) {
 										$findQuery = "select time from slots where code=\"$checkExistInt\"";
-										$insertQuery = "INSERT into slots ()";
 										$findResult = $conn->query($findQuery);
 										if (!$findResult) die ("Database access failed: " . $conn->error);
 										$findRows = $findResult->num_rows;
@@ -72,6 +71,7 @@
 									}
 
 									//INSERT TO DATABASE
+									$insertQuery = "INSERT into slots ()";
 									$insertResult = $conn->query($query);
 									if (!$insertResult) echo ("INSERT failed: " . $conn->error . "Report to administrator.");
 
@@ -116,7 +116,8 @@
 _END;
 								}
 
-								$result->close();
+								$insertResult->close();
+
 								$conn->close();
 								?>
 							</div>

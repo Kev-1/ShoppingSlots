@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>GrandLucky > Book a time slot</title>
+		<title>GrandLucky - Book a time slot</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -113,23 +113,23 @@ _END;
 										echo '<h3>Selected Date: '.$dateText.'</h3>';
 
 										echo <<<_END
-										<form action="confirmation.php" method="post">
-										<div class="row gtr-uniform">
-											<input type="hidden" id="location" name="location" value="$location">
-											<input type="hidden" id="date" name="date" value="$date2">
-											<div class="col-6 col-12-xsmall">
-												<input type="text" name="name" id="name" value="" placeholder="Name*" required/>
-											</div>
-											<div class="col-6 col-12-xsmall">
-												<input type="email" name="phone" id="phone" value="" placeholder="Phone Number*" required/>
-											</div>
-											<div class="col-12">
-												<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
-											</div>
-											<div class ="col-12">
-												<h3>Select a time</h3>
-												<select name="time" id="time" required>
-													<option value="">Select a time</option>
+											<form action="confirmation.php" method="post">
+											<div class="row gtr-uniform">
+												<input type="hidden" id="location" name="location" value="$location">
+												<input type="hidden" id="date" name="date" value="$date2">
+												<div class="col-6 col-12-xsmall">
+													<input type="text" name="name" id="name" value="" placeholder="Name*" required/>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<input type="email" name="phone" id="phone" value="" placeholder="Phone Number*" required/>
+												</div>
+												<div class="col-12">
+													<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
+												</div>
+												<div class ="col-12">
+													<h3>Select a time</h3>
+													<select name="time" id="time" required>
+														<option value="">Select a time</option>
 
 _END;
 										$time2 = strtotime("Today 09:00am");
@@ -165,6 +165,7 @@ _END;
 									};
 								//close connection
 								$timeResult->close();
+								$locationQuery->close();
 								$conn->close();
 								?>
 							</div>
