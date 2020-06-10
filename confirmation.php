@@ -32,11 +32,11 @@
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
-								<?php 
+								<?php
 								require 'database.php';
-								
+
 								if(isset($_POST['location']) && isset($_POST['time']) && isset($_POST['date']) && isset($_POST['name']) && isset($_POST['phone'])) {
-									
+
 									$location = $_POST['location'];
 									$time = $_POST['time'];
 									$date = $_POST['date'];
@@ -45,9 +45,9 @@
 										$email = $_POST['email'];
 									}
 									$phone = $_POST['phone'];
-									
+
 									$code = rand(100000000, 999999999); //random generated code.
-									
+
 									function checkExists($checkExistInt) {
 										$findQuery = "select time from slots where code=\"$checkExistInt\"";
 										$insertQuery = "INSERT into slots ()";
@@ -60,14 +60,21 @@
 											return 0;
 										}
 									}
-									
-									$verifyCode = checkExists($code);
-									//while loop to check if checkExists will return one.
 
-									//INSERT TO DATABASE	
+									//while loop to check if checkExists will return one.
+									while($b = true) {
+										$verifyCode = checkExists($code);
+										if(checkExists == 0) {
+											$b = false;
+										} else {
+											$code = rand(100000000, 999999999);
+										}
+									}
+
+									//INSERT TO DATABASE
 									$insertResult = $conn->query($query);
 									if (!$insertResult) echo ("INSERT failed: " . $conn->error . "Report to administrator.");
-									
+
 									echo <<<_END
 											<div class="table-wrapper">
 												<h3 align="center">Your unique code:</h3>
@@ -107,12 +114,10 @@
 												<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
 											</div>
 _END;
-	
-										
 								}
-								
+
 								$result->close();
-								$conn->close(); 
+								$conn->close();
 								?>
 							</div>
 						</section>

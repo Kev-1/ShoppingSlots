@@ -34,13 +34,13 @@
 							<div class="inner">
 								<?php
 									require 'database.php';
-								
+
 									if (isset($_POST['location']) == false) {
 										$locationQuery  = "SELECT * FROM locations";
 										$locationResult = $conn->query($locationQuery);
 										if (!$locationResult) die ("Database access failed: " . $conn->error);
 										$locationRows = $locationResult->num_rows;
-										
+
 										echo <<<_END
 										<form action="book.php" method="post">
 										<div class="row gtr-uniform">
@@ -49,18 +49,18 @@
 												<select name="location" id="location" required>
 													<option value="">Select a Location</option>
 _END;
-										
+
 										for ($i = 0 ; $i < $locationRows ; ++$i) {
 											$locationResult->data_seek($i);
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
 											echo "<option value=".$locationRow['location_id'].">".$locationRow['location_name']."</option>";
 										};
-										
+
 										echo <<<_END
 												</select>
 											</div>
 _END;
-										
+
 
 											$today = strtotime("today");
 											$today2 = date("Y-m-d", $today);
@@ -71,7 +71,7 @@ _END;
 											$twodays = strtotime("+2 Days");
 											$twodays2 = date("d-m-y", $twodays);
 											$twodaysText = date("d-m-y", $twodays);
-											
+
 											echo <<<_END
 											<div class="col-12">
 												<h3>Select a date:</h3>
@@ -89,15 +89,15 @@ _END;
 _END;
 										$locationResult->close();
 									};
-									
+
 									if(isset($_POST['location']) && isset($_POST['date'])) { //checks location.
-										
+
 										//set variables
 										$location = $_POST['location'];
 										$date = strtotime($_POST['date']);
 										$date2 = date("y-m-d", $date);
 										$dateText = date("d-m-y", $date);
-										
+
 										//get loc name.
 										$locationQuery  = "SELECT * FROM locations where location_id=$location";
 										$locationResult = $conn->query($locationQuery);
@@ -108,10 +108,10 @@ _END;
 											$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
 											echo '<h3>Selected location: '.$locationRow['location_name'].'</h3>';
 										}
-										
+
 										//display date
 										echo '<h3>Selected Date: '.$dateText.'</h3>';
-										
+
 										echo <<<_END
 										<form action="confirmation.php" method="post">
 										<div class="row gtr-uniform">
@@ -130,20 +130,20 @@ _END;
 												<h3>Select a time</h3>
 												<select name="time" id="time" required>
 													<option value="">Select a time</option>
-											
+
 _END;
 										$time2 = strtotime("Today 09:00am");
 										$time = date("h:i:s", $time2);
-										
+
 										for($k = 0; $k < 12; ++$k) {
 											$timeQuery  = "SELECT COUNT(ID) FROM slots WHERE time=\"$time\"";
 											$timeResult = $conn->query($timeQuery);
 											if (!$timeResult) die ("Database access failed: " . $conn->error);
 											$timeRows = $timeResult->num_rows;
 											for ($j = 0 ; $j < $timeRows ; ++$j) {
-												$timeResult->data_seek($i);
+												$timeResult->data_seek($j);
 												$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
-												$remaining = 150 - $timeRow['COUNT(id)'];	
+												$remaining = 150 - $timeRow['COUNT(id)'];
 											}
 											echo "<option value=".$time.">$time ($remaining Remaining)</option>";
 											$time->modify('+1 hour');
@@ -165,7 +165,7 @@ _END;
 									};
 								//close connection
 								$timeResult->close();
-								$conn->close(); 
+								$conn->close();
 								?>
 							</div>
 						</section>
