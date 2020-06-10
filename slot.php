@@ -37,7 +37,7 @@
 									
 									if (isset($_POST['number'])) {
 										$number = $_POST['number'];
-										$query = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.location_id where number=\"$number\"";
+										$query = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.location_id where code=\"$number\"";
 										
 										$result = $conn->query($query);
 										if (!$result) die ("Database access failed: " . $conn->error);

@@ -1,9 +1,11 @@
-<?
+<?php
 session_start();
 require "../database.php";
 if(isset($_POST['username']) && isset($_POST['password']))
 {	
-	$query = "SELECT * FROM admins where username=".$_POST['username']." AND password=".$_POST['password']."";	
+   $username = $_POST['username'];
+   $password = $_POST['password'];
+	$query = "SELECT * FROM users where username=\"$username\" AND password=\"$password\"";	
 	$result = $conn->query($query);
 	if (!$result) die ("Database access failed: " . $conn->error);
 	$rows = $result->num_rows;

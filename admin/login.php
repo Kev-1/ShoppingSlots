@@ -28,7 +28,7 @@
 				<article id="main">
 					<section class="wrapper style5">
 							<div class="inner">
-								<form action="login.php" method="post">
+								<form action="authenticate.php" method="post">
 									<div class="row gtr-uniform">
 										<div class="col-12">
 											<h3 align="center">Admin login</h3>
@@ -43,18 +43,20 @@
 											<input type="submit" class="primary">
 										</div>
 										<?php
-											if($_GET['error'] == 1) {
-												echo <<<_END
-												<div class="col-12" align="center">
-													<h3 align="center">Error: Incorrect username or password!</h3>
-												</div>
+											if(isset($_GET['error'])) {
+												if($_GET['error'] == 1) {
+													echo <<<_END
+													<div class="col-12" align="center">
+														<h3 align="center">Error: Incorrect username or password!</h3>
+													</div>
 _END;
-											} else if($_GET['error'] == 2) {
-												echo <<<_END
-												<div class="col-12" align="center">
-													<h3 align="center">Error: No username or password has been entered!</h3>
-												</div>
+												} else if($_GET['error'] == 2) {
+													echo <<<_END
+													<div class="col-12" align="center">
+														<h3 align="center">Error: No username or password has been entered!</h3>
+													</div>
 _END;
+												}
 											}
 										?>
 									</div>

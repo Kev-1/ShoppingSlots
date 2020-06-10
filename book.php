@@ -148,7 +148,6 @@ _END;
 											}
 											echo "<option value=".$time.">$time ($remaining Remaining)</option>";
 											$time = time('h:i:s', strtotime($time . " +1 hour"));
-											echo $time;
 										}
 										
 										$timeResult->close();

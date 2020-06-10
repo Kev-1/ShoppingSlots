@@ -34,7 +34,8 @@
 									if(!isset($_SESSION['user'])) {
 										header("Location: login.php");
 									} else {
-
+									
+										require "../database.php";
 
 									if (isset($_POST['location']) == false && isset($_POST['date']) == false && isset($_POST['time']) == false) {
 										$locationQuery  = "SELECT * FROM locations";
@@ -90,7 +91,7 @@ _END;
 
 										for($k = 0; $k < 12; ++$k) {
 											echo '<option value='.$time.'>'.$time.'</option>';
-											$time->modify('+1 hour');
+											$time = time('h:i:s', strtotime($time . " +1 hour"));
 										}
 
 										echo <<<_END
@@ -115,7 +116,7 @@ _END;
 										$date = $_POST['date'];
 										$location = $_POST['location'];
 
-										$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.id where date=$date AND time=$time AND location=$location";
+										$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.location_id where date=$date AND time=$time AND location=$location";
 										
 										if(isset($_POST['code'])) {
 											$code = $_POST['code'];
