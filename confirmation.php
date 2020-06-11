@@ -43,6 +43,8 @@
 									$name = $_POST['name'];
 									if (isset($_POST['email'])) {
 										$email = $_POST['email'];
+									} else {
+										$email = "Not filled";
 									}
 									$phone = $_POST['phone'];
 
@@ -62,8 +64,8 @@
 									}
 
 									//INSERT TO DATABASE
-									$insertQuery = "INSERT into slots ()";
-									$insertResult = $conn->query($query);
+									$insertQuery = "INSERT INTO slots (name, phone, location, date, time, code) VALUES (\"$name\", \"$phone\", \"$location\", \"$date\", \"$time\", \"$code\")";
+									$insertResult = $conn->query($insertQuery);
 									if (!$insertResult) echo ("INSERT failed: " . $conn->error . "Report to administrator.");
 
 									echo <<<_END

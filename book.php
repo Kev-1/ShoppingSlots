@@ -63,14 +63,14 @@ _END;
 
 
 											$today = strtotime("today");
-											$today2 = date("Y-m-d", $today);
-											$todayText = date("d-m-y", $today);
+											$today2 = date("Y-M-d", $today);
+											$todayText = date("d-M-Y", $today);
 											$tomorrow = strtotime("tomorrow");
-											$tomorrow2 = date("Y-m-d", $tomorrow);
-											$tomorrowText = date("d-m-y", $tomorrow);
+											$tomorrow2 = date("Y-M-d", $tomorrow);
+											$tomorrowText = date("d-M-Y", $tomorrow);
 											$twodays = strtotime("+2 Days");
-											$twodays2 = date("d-m-y", $twodays);
-											$twodaysText = date("d-m-y", $twodays);
+											$twodays2 = date("d-M-Y", $twodays);
+											$twodaysText = date("d-M-Y", $twodays);
 
 											echo <<<_END
 											<div class="col-12">
@@ -96,8 +96,8 @@ _END;
 										//set variables
 										$location = $_POST['location'];
 										$date = strtotime($_POST['date']);
-										$date2 = date("y-m-d", $date);
-										$dateText = date("d-m-y", $date);
+										$date2 = date("Y-m-d", $date);
+										$dateText = date("d-M-Y", $date);
 
 										//get loc name.
 										$locationQuery  = "SELECT * FROM locations where location_id=$location";
