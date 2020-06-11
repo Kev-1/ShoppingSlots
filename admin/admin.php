@@ -10,15 +10,15 @@
 	<body class="is-preload">
 		<div id="page-wrapper">
 			<header id="header">
-				<h1><a href="index.html">Grandlucky</a></h1>
+				<h1><a href="admin.php">Grandlucky Admin</a></h1>
 					<nav id="nav">
 						<ul>
 						<li class="special">
 							<a href="#menu" class="menuToggle"><span>Menu</span></a>
 							<div id="menu">
 								<ul>
-									<li><a href="index.html">Home</a></li>
-									<li><a href="slot.php">Book a time slot</a></li>
+									<li><a href="admin.php">Home</a></li>
+									<li><a href="search.php">Search</a></li>
 								</ul>
 							</div>
 						</li>

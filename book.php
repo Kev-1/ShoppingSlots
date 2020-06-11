@@ -122,10 +122,10 @@ _END;
 													<input type="text" name="name" id="name" value="" placeholder="Name*" required/>
 												</div>
 												<div class="col-6 col-12-xsmall">
-													<input type="email" name="phone" id="phone" value="" placeholder="Phone Number*" required/>
+													<input type="text" name="phone" id="phone" value="" placeholder="Phone Number*" required/>
 												</div>
 												<div class="col-12">
-													<input type="email" name="email" id="email" value="" placeholder="Email (Optional)" required/>
+													<input type="email" name="email" id="email" value="" placeholder="Email (Optional)"/>
 												</div>
 												<div class ="col-12">
 													<h3>Select a time</h3>
@@ -134,20 +134,21 @@ _END;
 
 _END;
 										$time2 = strtotime("Today 09:00am");
-										$time = date("h:i:s", $time2);
+										$time = date("G:i:s", $time2);
 
 										for($k = 0; $k < 12; ++$k) {
-											$timeQuery  = "SELECT COUNT(ID) FROM slots WHERE time=\"$time\"";
+											$timeQuery  = "SELECT COUNT(ID) FROM slots WHERE time=\"$time\" AND location=\"$location\" AND date=\"$date2\"";
 											$timeResult = $conn->query($timeQuery);
 											if (!$timeResult) die ("Database access failed: " . $conn->error);
 											$timeRows = $timeResult->num_rows;
 											for ($j = 0 ; $j < $timeRows ; ++$j) {
 												$timeResult->data_seek($j);
 												$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
-												$remaining = 150 - $timeRow['COUNT(id)'];
+												$remaining = 150 - $timeRow['COUNT(ID)'];
 											}
 											echo "<option value=".$time.">$time ($remaining Remaining)</option>";
-											$time = time('h:i:s', strtotime($time . " +1 hour"));
+											$time2 = strtotime("$time +1 hour");
+											$time = date("G:i:s", $time2);
 										}
 										
 										$timeResult->close();

@@ -10,15 +10,15 @@
 	<body class="is-preload">
 		<div id="page-wrapper">
 			<header id="header">
-				<h1><a href="index.html">Grandlucky ADMIN</a></h1>
+				<h1><a href="admin.php">Grandlucky ADMIN</a></h1>
 					<nav id="nav">
 						<ul>
 						<li class="special">
 							<a href="#menu" class="menuToggle"><span>Admin Menu</span></a>
 							<div id="menu">
 								<ul>
-									<li><a href="index.html">Home</a></li>
-									<li><a href="slot.php">Book a time slot</a></li>
+									<li><a href="admin.php">Home</a></li>
+									<li><a href="search.php">Search</a></li>
 								</ul>
 							</div>
 						</li>
@@ -87,11 +87,12 @@ _END;
 												<select name="time" id="time" required>
 _END;
 										$time2 = strtotime("Today 09:00am");
-										$time = date("h:i:s", $time2);
+										$time = date("G:i:s", $time2);
 
 										for($k = 0; $k < 12; ++$k) {
 											echo '<option value='.$time.'>'.$time.'</option>';
-											$time = time('h:i:s', strtotime($time . " +1 hour"));
+											$time2 = strtotime("$time +1 hour");
+											$time = date("G:i:s", $time2);
 										}
 
 										echo <<<_END
@@ -116,7 +117,7 @@ _END;
 										$date = $_POST['date'];
 										$location = $_POST['location'];
 
-										$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.location_id where date=$date AND time=$time AND location=$location";
+										$query  = "SELECT * FROM slots INNER JOIN locations on slots.location=locations.location_id where date=\"$date\" AND time=\"$time\" AND location=$location";
 										
 										if(isset($_POST['code'])) {
 											$code = $_POST['code'];

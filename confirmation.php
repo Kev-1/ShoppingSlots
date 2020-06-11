@@ -48,25 +48,16 @@
 
 									$code = rand(100000000, 999999999); //random generated code.
 
-									function checkExists($checkExistInt) { 
-										$findQuery = "select time from slots where code=\"$checkExistInt\"";
-										$findResult = $conn->query($findQuery);
-										if (!$findResult) die ("Database access failed: " . $conn->error);
-										$findRows = $findResult->num_rows;
-										if($findRows > 0) {
-											return 1;
-										} else {
-											return 0;
-										}
-									}
 
 									//while loop to check if checkExists will return one.
-									while($b = true) {
-										$verifyCode = checkExists($code);
-										if(checkExists == 0) {
-											$b = false;
-										} else {
+									while($b == true) {
+										$findQuery = "select * from slots where code=\"$code\"";
+										$findResult = $conn->query($findQuery);
+										if (!$findResult) die ("Database access failed: " . $conn->error);
+										if($findResult->num_rows > 0) {
 											$code = rand(100000000, 999999999);
+										} else {
+											$b = false;
 										}
 									}
 
@@ -117,7 +108,6 @@ _END;
 								}
 
 								$insertResult->close();
-
 								$conn->close();
 								?>
 							</div>
