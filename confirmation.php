@@ -47,11 +47,13 @@
 										$email = "Not filled";
 									}
 									$phone = $_POST['phone'];
+									
+									
 
 									$code = rand(100000000, 999999999); //random generated code.
-
-
+									
 									//while loop to check if checkExists will return one.
+									$b = true;
 									while($b == true) {
 										$findQuery = "select * from slots where code=\"$code\"";
 										$findResult = $conn->query($findQuery);
@@ -62,7 +64,9 @@
 											$b = false;
 										}
 									}
-
+									
+									//retrieve location name again.
+									
 									//INSERT TO DATABASE
 									$insertQuery = "INSERT INTO slots (name, phone, location, date, time, code) VALUES (\"$name\", \"$phone\", \"$location\", \"$date\", \"$time\", \"$code\")";
 									$insertResult = $conn->query($insertQuery);
@@ -100,16 +104,23 @@
 															</tr>
 															<tr>
 																<td>Location:</td>
-																<td>$location</td>
+																<td>$location_name</td>
 															</tr>
 														</tbody>
 													</table>
 												<h4 align="center">Please finish your shopping by one hour in order to reduce the number of people in the store. Thank your for your co-operation</h4>
 											</div>
 _END;
+								} else {
+									echo <<<_END
+										<div class="col-12">
+											<h3>Error: No input was recieved. Click the button below to go back to the main page.</h3>		
+										</div>
+										<div class="col-12">
+											<a href="./index.html" class="button">Go back</a>
+										</div>
+_END;
 								}
-
-								$insertResult->close();
 								$conn->close();
 								?>
 							</div>
