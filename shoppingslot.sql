@@ -35,13 +35,6 @@ CREATE TABLE `locations` (
 -- Dumping data for table `locations`
 --
 
-INSERT INTO `locations` (`location_id`, `location_name`) VALUES
-(1, 'GrandLucky SCBD'),
-(2, 'GrandLucky Radio Dalam'),
-(3, 'GrandLucky Cinere'),
-(4, 'GrandLucky Paragon'),
-(5, 'GrandLucky Bali');
-
 -- --------------------------------------------------------
 
 --
@@ -76,8 +69,6 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `display_name`) VALUES
-(1, 'user', 'user', 'jo');
 
 --
 -- Indexes for dumped tables

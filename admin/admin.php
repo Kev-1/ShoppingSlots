@@ -74,8 +74,8 @@ _END;
 											echo '</tr>';
 									}
 								echo <<<_END
-								</table>
-								</div>
+										</table>
+									</div>
 								</div>
 _END;
 								};

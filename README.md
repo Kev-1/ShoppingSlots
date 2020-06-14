@@ -1,5 +1,8 @@
 # TimeSlotPicker
- Allows users to pick a time slot for shopping. Made for indonesian supermarkets who have not implemented such system.
+Made with love by ItsKev1
+
+## About the project
+On the ongoing COVID 19 pandemic that has devastated the world, Indonesian supermarkets have not implemented such system that reduces the amount of people in the store at one time. Therefore, I have created this to reduce the spread of covid 19, which has already overwhelmed hospitals. With this implemented, everyone will need to book a slot before buying it.
 
 ## Features
 - Displays how many slots remaining
@@ -10,6 +13,7 @@
 - Make opening and end time configurable
 - Make number of slots configurable
 - Use JSON files for the parameters
+- See issues for bugs and enhancements
 
 ## Presquites
 - PHP 7.2
@@ -22,6 +26,7 @@
 2. Place all the files on apache2 folder
 3. Import the MySQL database
 4. Edit the database.php to match with your mysql database and credentials
+5. Add a admin user in users database, use sha1 for salt.
 
 ## Build with
 - HTML5UP - the template used

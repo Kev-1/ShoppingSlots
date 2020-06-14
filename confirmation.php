@@ -48,8 +48,39 @@
 									}
 									$phone = $_POST['phone'];
 									
+									function validationcheck() {
+										global $err;
+										if(empty($_POST['name'])) {
+											$err = $err . "Name cannot be empty! ";
+											return false;
+										}
+										
+										if(empty($_POST['phone'])) {
+											$err = $err . "Phone cannot be empty! ";
+											return false;
+										}
+										
+										if(empty($_POST['time'])) {
+											$err = $err . "Time must be selected! ";
+											return false;
+										}
+										
+										if(is_numeric($_POST['phone']) == false) {
+											$err = $err . "Time must be in numbers! ";
+											return false;
+										}
+										
+										if(strlen($_POST['phone']) < 7) {
+											$err = $err . "Phone number is less than 7 digits!";
+											return false;
+										}
+										
+										if($err == NULL) {
+											return true;
+										}
+										
+									}
 									
-
 									$code = rand(100000000, 999999999); //random generated code.
 									
 									//while loop to check if checkExists will return one.
@@ -66,6 +97,15 @@
 									}
 									
 									//retrieve location name again.
+									$locationQuery  = "SELECT * FROM locations where location_id=$location";
+									$locationResult = $conn->query($locationQuery);
+									if (!$locationResult) die ("Database access failed: " . $conn->error);
+									$locationRows = $locationResult->num_rows;
+									for ($i = 0 ; $i < $locationRows ; ++$i) {
+										$locationResult->data_seek($i);
+										$locationRow = $locationResult->fetch_array(MYSQLI_ASSOC);
+										$location_name = $locationRow['location_name'];
+									}
 									
 									//INSERT TO DATABASE
 									$insertQuery = "INSERT INTO slots (name, phone, location, date, time, code) VALUES (\"$name\", \"$phone\", \"$location\", \"$date\", \"$time\", \"$code\")";
@@ -78,6 +118,7 @@
 												<h2 align="center">$code</h2>
 												<h3 align="center">Details of person: </h3>
 													<table>
+														<tbody>
 															<tr>
 																<td>Name:</td>
 																<td>$name</td>
@@ -90,6 +131,7 @@
 																<td>Email:</td>
 																<td>$email</td>
 															</tr>
+														</tbody>
 													</table>
 												<h3 align="center">Details of Booking: </h3>
 													<table>
@@ -114,7 +156,7 @@ _END;
 								} else {
 									echo <<<_END
 										<div class="col-12">
-											<h3>Error: No input was recieved. Click the button below to go back to the main page.</h3>		
+											<h3>Error: No valid input was recieved. Click the button below to go back to the main page.</h3>		
 										</div>
 										<div class="col-12">
 											<a href="./index.html" class="button">Go back</a>
