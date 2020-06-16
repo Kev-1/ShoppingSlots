@@ -19,4 +19,6 @@ require "../database.php";
    } else {
       header( "Location: login.php?error=2" );
    }
+	$result->close();
+	$conn->close(); 
 ?>

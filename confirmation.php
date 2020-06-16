@@ -48,8 +48,9 @@
 									}
 									$phone = $_POST['phone'];
 									
-									function validationcheck() {
+									function validationCheck() {
 										global $err;
+										global $conn;
 										if(empty($_POST['name'])) {
 											$err = $err . "Name cannot be empty! ";
 											return false;
@@ -62,7 +63,7 @@
 										
 										if(empty($_POST['time'])) {
 											$err = $err . "Time must be selected! ";
-											return false;
+											return false; //CLIENT SIDE VALIDATION EXISTS, BUT JUST TO BE SURE :)
 										}
 										
 										if(is_numeric($_POST['phone']) == false) {
@@ -71,17 +72,32 @@
 										}
 										
 										if(strlen($_POST['phone']) < 7) {
-											$err = $err . "Phone number is less than 7 digits!";
+											$err = $err . "Phone number is less than 7 digits! ";
 											return false;
 										}
 										
-										if($err == NULL) {
+										$timeQuery  = "SELECT COUNT(ID) FROM slots WHERE time=\"$time\" AND location=\"$location\" AND date=\"$date\"";
+										$timeResult = $conn->query($timeQuery);
+										if (!$timeResult) die ("Database access failed: " . $conn->error);
+										$timeRows = $timeResult->num_rows;
+										for ($j = 0 ; $j < $timeRows ; ++$j) {
+											$timeResult->data_seek($j);
+											$timeRow = $timeResult->fetch_array(MYSQLI_ASSOC);
+											$remaining = 150 - $timeRow['COUNT(ID)'];
+										}
+										
+										if($remaining == 0) {
+											$err = $err . "Time selected is already full. ";
+											return false;
+										}
+										
+										if(isset($err) == false) {
 											return true;
 										}
 										
 									}
 									
-									if(validationcheck()) {
+									if(validationCheck() == true) {
 										$code = rand(100000000, 999999999); //random generated code.
 
 										//while loop to check if checkExists will return one.
@@ -159,10 +175,10 @@ _END;
 									} else {
 										echo <<<_END
 									<div class="col-12">
-										<h3>Error: $msg</h3>
+										<h3>Error: $err</h3>
 									</div>
 									<div class="col-12">
-										<a href="./index.html" class="button">Go back</a>
+										<a href="javascript:history.go(-1)" title="Go Back" class="button">&laquo; Go back</a>
 									</div>
 _END;
 									}
@@ -172,7 +188,7 @@ _END;
 										<h3>Error: No valid input was recieved. Click the button below to go back to the main page.</h3>		
 									</div>
 									<div class="col-12">
-										<a href="./index.html" class="button">Go back</a>
+										<a href="javascript:history.go(-1)" title="Go Back" class="button">&laquo; Go back</a>
 									</div>
 _END;
 								}
