@@ -121,12 +121,12 @@ _END;
 										
 										if(isset($_POST['code'])) {
 											$code = $_POST['code'];
-											$query = $query .' '. $code;
+											$query = $query .' AND code="'. $code . '"';
 										}
 
 										if(isset($_POST['name'])) {
 											$name = $_POST['name'];
-											$query = $query .' '. $name;
+											$query = $query .' AND name="'. $name . '"';
 										}
 										
 										$result = $conn->query($query);
