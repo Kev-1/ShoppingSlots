@@ -16,7 +16,7 @@ On the ongoing COVID 19 pandemic that has devastated the world, Indonesian super
 - See issues for bugs and enhancements
 
 ## Presquites
-- PHP 7.2
+- PHP 7.2 or later
 - Apache / Nginx
 - The latest version of MySQL
 - (Optional) PHPMyAdmin
@@ -28,13 +28,10 @@ On the ongoing COVID 19 pandemic that has devastated the world, Indonesian super
 4. Edit the database.php to match with your mysql database and credentials
 5. Add a admin user in users database, use sha1 for salt.
 
-## Config
+## Config (to do)
 - `open_time` Open time of the shop in HH:MM:SS
 - `close_time` Closed time of the shop in HH:MM:SS
 - `capacity` Capacity of the shop allowed in 1 hour
-
-
-
 
 ## Build with
 - HTML5UP - the template used
